@@ -1,17 +1,15 @@
 ---
 name: story-writer
-description: Analysis and ticket drafting skill — performs structured retrieval from the wiki to analyze feature readiness and generate tickets. Read-only; only searches the wiki/ folder.
-allowed-tools: Read, Glob, Grep, Bash, GenerateText
+description: Analysis, ticket drafting, and publishing skill — retrieves context from the wiki and manages the ticket lifecycle from draft to the tickets/ folder.
+allowed-tools: Read, Glob, Grep, Bash, GenerateText, Write
 argument-hint: "feature name" | "module topic" | ANA-1 | TKT-1
 ---
 
 # LLM Story Writer & Analyzer Skill
 
-## Analysis-First Ticket Generation
+## Analysis-First Ticket Generation & Management
 
-This skill analyzes the `wiki/` folder to synthesize development-ready tickets. 
-It is strictly **read-only** and adheres to the **SEARCH SOURCE RULE**: it only 
-uses information present in the synthesized wiki.
+This skill analyzes the `wiki/` folder to synthesize development-ready tickets and manages their lifecycle through review to publishing.
 
 ---
 
@@ -26,6 +24,7 @@ STRICT REQUIREMENT CONSTRAINT:
      State the gap explicitly in the "Note:" section.
      Do NOT make assumptions or "hallucinate" the missing logic.
 5. Search ONLY the wiki/ folder. Ignore raw/ and other directories.
+6. WRITE RULE: The skill is strictly read-only for wiki/ and raw/. It is authorized to write and create directories ONLY within the tickets/ directory.
 ```
 
 ---
@@ -34,13 +33,13 @@ STRICT REQUIREMENT CONSTRAINT:
 
 - Performs a 3-pass retrieval on `wiki/` to gather all context for a feature or module.
 - Analyzes the gathered content for logical consistency and ticket-readiness.
-- Generates highly structured PM-style tickets based *only* on verified wiki content.
+- Generates highly structured tickets based *only* on verified wiki content.
+- **Manages Ticket Lifecycle**: Handles the review process and automated publishing to the `tickets/` directory.
 - Identifies and surfaces gaps where the wiki lacks the detail required for implementation.
-- Operates as a "read-only" researcher — it never modifies the wiki or raw documents.
 
 ---
 
-## Core approach: 3-pass retrieval + PM analysis
+## Core approach: 3-pass retrieval + analysis
 
 ### Retrieval Phase (Internal)
 Before generating any content, the skill must:
@@ -49,7 +48,8 @@ Before generating any content, the skill must:
 3. **Pass 3:** Follow central wikilinks to resolve dependencies (e.g., cross-module logic).
 
 ### Analysis Phase
-Evaluate the retrieved data against PM's Ticket standards:
+Evaluate the retrieved data against Ticket standards:
+- **Acceptance Criteria completeness**: Are all sections below defined?
 - Are "Access" paths defined?
 - Are "Validations" explicit and testable?
 - Are "State Changes" and "Upon saving" effects clear?
@@ -71,20 +71,23 @@ Evaluate the retrieved data against PM's Ticket standards:
 3. Return a "Readiness Report" instead of a ticket.
 ```
 
-### TKT-1: Generate Ticket from Wiki
+### TKT-1: Generate, Review & Publish
 **Trigger:** The user wants a development-ready ticket for a feature.
 
-```
-1. Search wiki/ using the 3-pass retrieval pattern for [topic].
-2. Construct the ticket using the Standard Template (PM's Style).
-3. Ensure every line is derived from the wiki.
-4. If info is missing for a section (e.g., Design Link), use the placeholder [Design Link].
-5. If business logic is missing, add a "Note:" stating the gap.
-```
+1. **Context Retrieval**: Perform the 3-pass retrieval on `wiki/`.
+2. **Drafting**: Construct the ticket using the Standard Template (ensuring the `Acceptance Criteria:` section is complete).
+3. **Confirmation Loop**:
+   - Present the full ticket content to the user.
+   - **Ask explicitly**: "Review the ticket above. Should I proceed to publish this to `tickets/[feature-name]/`?"
+4. **Automated Publishing (Post-Approval)**:
+   - Sanitize the [feature-name] for directory naming (e.g., "Shift Scheduling" -> `shift-scheduling`).
+   - Create the directory `tickets/[sanitized-feature-name]/` if it does not exist.
+   - Save the ticket file using the naming convention: `[Ticket-ID]-[Sanitized-Title].md`.
+   - **Pre-Publishing Check**: Before saving, check if a ticket with the same ID or name already exists in the `tickets/` folder and notify the user if a conflict is found.
 
 ---
 
-## Standard Ticket Template (PM's Style)
+## Standard Ticket Template
 
 Every generated ticket MUST strictly follow this layout.
 
@@ -96,6 +99,8 @@ I want to <action>,
 So that <benefit>.
 
 [Design Link]
+
+Acceptance Criteria:
 
 Access:
 <Navigation path 1> --> <Sub-path>
@@ -124,6 +129,7 @@ Note:
 
 ## Writing Style Rules
 
+- **Acceptance Criteria**: All content following the `[Design Link]` marker (including Access, Steps, Validations, Upon saving, and Note) collectively constitutes the **Acceptance Criteria**. When generating tickets, always include the `Acceptance Criteria:` header.
 - **Direct & Instructional:** Use "will", "must", or "can". Avoid "should".
 - **No Bullets in Logic:** Use a line-by-line structure for rules (each line is a rule).
 - **Terminology:** Use exact wiki terms (e.g., "License record", not "License").
@@ -137,6 +143,5 @@ Note:
 | Operation | Purpose | Search Scope |
 |-----------|---------|--------------|
 | `/story-writer ANA-1` | Analyze if wiki has enough info for a ticket | `wiki/` only |
-| `/story-writer TKT-1` | Generate a ticket based on wiki content | `wiki/` only |
-| `/story-writer [topic]` | Default: Search + Analyze + Draft Ticket | `wiki/` only |
-
+| `/story-writer TKT-1` | Generate, Review, and Publish a ticket | `wiki/` only |
+| `/story-writer [topic]` | Default: Search + Analyze + Draft + Review | `wiki/` only |
