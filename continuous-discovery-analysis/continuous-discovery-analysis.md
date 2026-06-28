@@ -1,7 +1,7 @@
 # Skill: Continuous Discovery Analysis
 
 **Skill ID:** continuous-discovery-analysis
-**Version:** 1.0
+**Version:** 1.1
 **Triggers:** "run discovery analysis", "compare with competitors",
               "discovery insight", "what are competitors doing"
 
@@ -10,7 +10,7 @@
 ## Purpose
 Compare the project's own product wiki against the Continuous Discovery
 competitor wiki to produce structured competitive intelligence.
-Output is always saved to Discovery-Insights/ with full iteration support.
+Output is always saved to Continuous-Discovery/Discovery-Insights/ with full iteration support.
 
 ---
 
@@ -28,9 +28,9 @@ Read: `Continuous-Discovery/wiki/index.md` first, then drill into
 Extract: every competitor feature, flow, and trend documented there
 
 ### Source 3 — Existing Insights (for iteration)
-Path: `[project-root]/Discovery-Insights/`
-Read: `Discovery-Insights/INSIGHTS-INDEX.md`
-If iterating on a specific date: read all files in `Discovery-Insights/[date]/`
+Path: `[project-root]/Continuous-Discovery/Discovery-Insights/`
+Read: `Continuous-Discovery/Discovery-Insights/INSIGHTS-INDEX.md`
+If iterating on a specific date: read all files in `Continuous-Discovery/Discovery-Insights/[date]/`
 
 ---
 
@@ -43,50 +43,44 @@ For every feature/epic found in Continuous-Discovery/wiki/ that has NO
 corresponding entry in the product wiki/:
 
 Output format per gap:
-[Feature Name]
-
-
-Competitor(s): [who has it]
-Their implementation: [brief description]
-Estimated user impact: [why users might prefer it]
-Gap severity: Critical | High | Medium | Low
-
-Critical = core to the product category, you're missing it entirely
-High = common across 2+ competitors
-Medium = one competitor, niche use case
-Low = edge case or experimental feature
-
-
-
-Recommended action: Build | Monitor | Ignore | Differentiate
+```
+### [Feature Name]
+- **Competitor(s):** [who has it]
+- **Their implementation:** [brief description]
+- **Estimated user impact:** [why users might prefer it]
+- **Gap severity:** Critical | High | Medium | Low
+  - Critical = core to the product category, you're missing it entirely
+  - High = common across 2+ competitors
+  - Medium = one competitor, niche use case
+  - Low = edge case or experimental feature
+- **Recommended action:** Build | Monitor | Ignore | Differentiate
+```
 
 ### Analysis 2 — Flow Difference Analysis (Same Feature, Different Edge)
 For every feature that EXISTS in both wikis but with different flows or approaches:
 
 Output format per difference:
-
-[Feature Name]
-
-
-Your current flow: [summary from your wiki]
-Competitor approach: [who does it differently and how]
-Competitive edge they have: [what's better about their version]
-Your potential response: Adopt | Adapt | Differentiate | Defend
+```
+### [Feature Name]
+- **Your current flow:** [summary from your wiki]
+- **Competitor approach:** [who does it differently and how]
+- **Competitive edge they have:** [what's better about their version]
+- **Your potential response:** Adopt | Adapt | Differentiate | Defend
+```
 
 ### Analysis 3 — Market Trend Radar
 From Continuous-Discovery/wiki/market-trends/, extract all documented trends.
 For each trend:
 
 Output format:
-
-[Trend Name]
-
-
-Trend description: [what's happening in the market]
-Who's leading it: [competitors driving this trend]
-Your current position: Ahead | On-par | Behind | Not started
-Gap to close: [what you'd need to do to be on-par or ahead]
-Urgency: Now | Next Quarter | Next Year | Watch
+```
+### [Trend Name]
+- **Trend description:** [what's happening in the market]
+- **Who's leading it:** [competitors driving this trend]
+- **Your current position:** Ahead | On-par | Behind | Not started
+- **Gap to close:** [what you'd need to do to be on-par or ahead]
+- **Urgency:** Now | Next Quarter | Next Year | Watch
+```
 
 ### Analysis 4 — Synthesis & Priorities
 After running all three analyses above, synthesize:
@@ -101,9 +95,16 @@ After running all three analyses above, synthesize:
 
 ### Step 1 — Determine Output Folder
 
+The output folder is ALWAYS inside Continuous-Discovery/, never at the project
+root or vault root. The correct path is:
+
+`[project-root]/Continuous-Discovery/Discovery-Insights/`
+
+Never create Discovery-Insights/ anywhere else.
+
 Check if I specified a date to iterate on:
-- If yes → use `Discovery-Insights/[that date]/`
-- If no (new run) → use today's date: `Discovery-Insights/YYYY-MM-DD/`
+- If yes → use `Continuous-Discovery/Discovery-Insights/[that date]/`
+- If no (new run) → use today's date: `Continuous-Discovery/Discovery-Insights/YYYY-MM-DD/`
 
 Create the folder if it doesn't exist.
 
@@ -170,7 +171,7 @@ Always append to this file, never overwrite:
   - Discovery wiki updated: [yes/no — what changed]
 ```
 
-### Step 4 — Update `Discovery-Insights/INSIGHTS-INDEX.md`
+### Step 4 — Update `Continuous-Discovery/Discovery-Insights/INSIGHTS-INDEX.md`
 
 Always update this master index after every run or iteration:
 ```markdown
@@ -184,18 +185,20 @@ Always update this master index after every run or iteration:
 
 ### Step 5 — Log in Continuous-Discovery/wiki/log.md
 Append:
-[YYYY-MM-DD] discovery-analysis | Iteration [N] | [N] gaps, [N] trends
+```
+## [YYYY-MM-DD] discovery-analysis | Iteration [N] | [N] gaps, [N] trends
+```
 
 ---
 
 ## Iteration Rules
 
 ### Running a Fresh Analysis (no date specified)
-→ Create new `Discovery-Insights/YYYY-MM-DD/` folder with iteration: 1
+→ Create new `Continuous-Discovery/Discovery-Insights/YYYY-MM-DD/` folder with iteration: 1
 
 ### Iterating on an Existing Date
 Triggers: "iterate on [date]", "update the [date] insights", "revise [date]"
-→ Read all existing files in `Discovery-Insights/[date]/`
+→ Read all existing files in `Continuous-Discovery/Discovery-Insights/[date]/`
 → Re-run only the analyses where inputs changed
 → Increment iteration number in all frontmatter
 → Append to iteration-log.md, never overwrite
