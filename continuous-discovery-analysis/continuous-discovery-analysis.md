@@ -1,7 +1,7 @@
 # Skill: Continuous Discovery Analysis
 
 **Skill ID:** continuous-discovery-analysis
-**Version:** 1.1
+**Version:** 6.1
 **Triggers:** "run discovery analysis", "compare with competitors",
               "discovery insight", "what are competitors doing"
 
@@ -22,8 +22,8 @@ Read: `wiki/index.md` first, then drill into `wiki/features/` and `wiki/user-flo
 Extract: every epic, feature, and user flow your product has
 
 ### Source 2 — Competitor Wiki
-Path: `[project-root]/Continuous-Discovery/wiki/`
-Read: `Continuous-Discovery/wiki/index.md` first, then drill into
+Path: `[project-root]/Continuous-Discovery/Disc. Wiki/`
+Read: `Continuous-Discovery/Disc. Wiki/index.md` first, then drill into
 `competitors/`, `features/`, `flows/`, `market-trends/`
 Extract: every competitor feature, flow, and trend documented there
 
@@ -39,7 +39,7 @@ If iterating on a specific date: read all files in `Continuous-Discovery/Discove
 Run all four analyses in sequence. Do not skip any.
 
 ### Analysis 1 — Gap Analysis (What They Have, You Don't)
-For every feature/epic found in Continuous-Discovery/wiki/ that has NO
+For every feature/epic found in Continuous-Discovery/Disc. Wiki/ that has NO
 corresponding entry in the product wiki/:
 
 Output format per gap:
@@ -69,7 +69,7 @@ Output format per difference:
 ```
 
 ### Analysis 3 — Market Trend Radar
-From Continuous-Discovery/wiki/market-trends/, extract all documented trends.
+From Continuous-Discovery/Disc. Wiki/market-trends/, extract all documented trends.
 For each trend:
 
 Output format:
@@ -183,7 +183,7 @@ Always update this master index after every run or iteration:
 | 2026-06-15 | 1 | 7 | 5 | [[2026-06-15/insight-report]] |
 ```
 
-### Step 5 — Log in Continuous-Discovery/wiki/log.md
+### Step 5 — Log in Continuous-Discovery/Disc. Wiki/log.md
 Append:
 ```
 ## [YYYY-MM-DD] discovery-analysis | Iteration [N] | [N] gaps, [N] trends
@@ -218,15 +218,15 @@ Triggers: "compare [date1] insights with [date2]"
 
 ---
 
-## Ingest Workflow for Continuous-Discovery/raw/
+## Ingest Workflow for Continuous-Discovery/Disc. Raw/
 
-When I drop a new competitor source in Continuous-Discovery/raw/:
+When I drop a new competitor source in Continuous-Discovery/Disc. Raw/:
 1. Read it fully
 2. Identify: which competitor, which features, which flows, any trend signals
-3. Update or create pages in Continuous-Discovery/wiki/competitors/
-4. Update or create pages in Continuous-Discovery/wiki/features/
-5. Update or create pages in Continuous-Discovery/wiki/market-trends/ if relevant
-6. Update Continuous-Discovery/wiki/index.md
-7. Append to Continuous-Discovery/wiki/log.md:
+3. Update or create pages in Continuous-Discovery/Disc. Wiki/competitors/
+4. Update or create pages in Continuous-Discovery/Disc. Wiki/features/
+5. Update or create pages in Continuous-Discovery/Disc. Wiki/market-trends/ if relevant
+6. Update Continuous-Discovery/Disc. Wiki/index.md
+7. Append to Continuous-Discovery/Disc. Wiki/log.md:
    `## [YYYY-MM-DD] ingest | [Source: Competitor Name — what it covers]`
 8. Ask: "Discovery wiki updated. Want to run a new analysis or iterate on an existing one?"
