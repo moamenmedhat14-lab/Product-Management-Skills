@@ -1,6 +1,6 @@
 ---
 name: story-writer
-description: Analysis, ticket drafting, and publishing skill — retrieves context from the wiki and manages the ticket lifecycle from draft to the tickets/ folder.
+description: Analysis, ticket drafting, and publishing skill — retrieves context from the wiki and manages the ticket lifecycle from draft to a tickets/ folder nested inside the related work-bench/[Analysis_Name]/ folder.
 allowed-tools: Read, Glob, Grep, Bash, GenerateText, Write
 argument-hint: "feature name" | "module topic" | ANA-1 | TKT-1
 ---
@@ -24,7 +24,7 @@ STRICT REQUIREMENT CONSTRAINT:
      State the gap explicitly in the "Note:" section.
      Do NOT make assumptions or "hallucinate" the missing logic.
 5. Search ONLY the wiki/ folder. Ignore raw/ and other directories.
-6. WRITE RULE: The skill is strictly read-only for wiki/ and raw/. It is authorized to write and create directories ONLY within the tickets/ directory.
+6. WRITE RULE: The skill is strictly read-only for wiki/ and raw/. It is authorized to write and create directories ONLY within the work-bench/[Analysis_Name]/tickets/ directory.
 ```
 
 ---
@@ -34,7 +34,7 @@ STRICT REQUIREMENT CONSTRAINT:
 - Performs a 3-pass retrieval on `wiki/` to gather all context for a feature or module.
 - Analyzes the gathered content for logical consistency and ticket-readiness.
 - Generates highly structured tickets based *only* on verified wiki content.
-- **Manages Ticket Lifecycle**: Handles the review process and automated publishing to the `tickets/` directory.
+- **Manages Ticket Lifecycle**: Handles the review process and automated publishing to the `work-bench/[Analysis_Name]/tickets/` directory, linked to the analysis it belongs to.
 - Identifies and surfaces gaps where the wiki lacks the detail required for implementation.
 
 ---
@@ -76,14 +76,27 @@ Evaluate the retrieved data against Ticket standards:
 
 1. **Context Retrieval**: Perform the 3-pass retrieval on `wiki/`.
 2. **Drafting**: Construct the ticket using the Standard Template (ensuring the `Acceptance Criteria:` section is complete).
-3. **Confirmation Loop**:
+3. **Locate the Related Analysis Folder**:
+   - Sanitize the [feature-name] for directory naming (e.g., "Shift Scheduling" -> `Shift-Scheduling`).
+   - List the folders under `work-bench/` and look for one matching the sanitized [feature-name] (exact or close match) — this is `[Analysis_Name]`.
+   - If no matching folder exists, **ask the user explicitly**: "I couldn't find an existing analysis folder for '[feature-name]' under `work-bench/`. Which analysis folder should these tickets be linked to? (Or should I create a new `work-bench/[feature-name]/` folder for them?)" Do not guess.
+4. **Confirmation Loop**:
    - Present the full ticket content to the user.
-   - **Ask explicitly**: "Review the ticket above. Should I proceed to publish this to `tickets/[feature-name]/`?"
-4. **Automated Publishing (Post-Approval)**:
-   - Sanitize the [feature-name] for directory naming (e.g., "Shift Scheduling" -> `shift-scheduling`).
-   - Create the directory `tickets/[sanitized-feature-name]/` if it does not exist.
+   - **Ask explicitly**: "Review the ticket above. Should I proceed to publish this to `work-bench/[Analysis_Name]/tickets/`?"
+5. **Automated Publishing (Post-Approval)**:
+   - Create the directory `work-bench/[Analysis_Name]/tickets/` if it does not exist.
    - Save the ticket file using the naming convention: `[Ticket-ID]-[Sanitized-Title].md`.
-   - **Pre-Publishing Check**: Before saving, check if a ticket with the same ID or name already exists in the `tickets/` folder and notify the user if a conflict is found.
+   - **Pre-Publishing Check**: Before saving, check if a ticket with the same ID or name already exists in the `work-bench/[Analysis_Name]/tickets/` folder and notify the user if a conflict is found.
+
+**Folder Structure:** Tickets are published as a sibling of the `analysis/` folder inside the same analysis's workbench folder:
+```
+work-bench/
+  [Analysis_Name]/
+    analysis/
+      [Analysis_Name]_Analysis.md
+    tickets/
+      [Ticket-ID]-[Sanitized-Title].md
+```
 
 ---
 

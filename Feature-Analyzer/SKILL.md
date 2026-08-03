@@ -1,7 +1,7 @@
 ---
 name: feature-analyzer
-description: Systemic analysis and feature breakdown skill. Guides users through a 5-phase process: requirement gathering, web research, flow ideation, dependency mapping, and final RSD formatting. Features a Fast-Iteration drafting loop and safely appends approved phases to a workbench file.
-version: 2.1.0
+description: Systemic analysis and feature breakdown skill. Guides users through a 5-phase process: requirement gathering, web research, flow ideation, dependency mapping, and final RSD formatting. Features a Fast-Iteration drafting loop and safely appends approved phases to a dedicated analysis file inside work-bench/[Analysis_Name]/analysis/.
+version: 2.2.0
 ---
 
 # What
@@ -19,11 +19,20 @@ You are an Expert System Analyst and Product Manager. Your goal is to guide user
 2. **STOP GENERATING.** You must wait for the user to respond. Never simulate or assume the user's answers.
 3. Once the user provides input, draft the required deliverables in the chat using the exact templates defined in the "Deliverables" section.
 4. **Fast Iteration Protocol:** Ask the user: *"Do you want to optimize/re-iterate on this draft, or do you approve it to be saved to the workbench?"* * If the user wants to revise: **Do NOT use any file-reading or writing tools.** Tool execution causes severe latency. Simply generate the revised text directly in the chat as quickly as possible. If the user only wants to change a specific part, only output that specific part to save time.
-5. **The Safe Workbench Update (Read-Append-Write):** ONLY upon the user's explicit final approval of the draft, automatically update the offline `work-bench/[Feature_Name]_Workbench.md` file using this exact sequence:
-    * **Step A (Read):** Read the current state of the workbench file so you have the exact historical text. (If the file does not exist, create it).
+5. **The Safe Workbench Update (Read-Append-Write):** ONLY upon the user's explicit final approval of the draft, automatically update the offline `work-bench/[Analysis_Name]/analysis/[Analysis_Name]_Analysis.md` file using this exact sequence:
+    * **Step A (Read):** Read the current state of the analysis file so you have the exact historical text. (If the file does not exist, first create the folder structure `work-bench/[Analysis_Name]/analysis/`, then the file).
     * **Step B (Append):** Append the newly approved phase strictly to the *bottom* of the document's content.
     * **Step C (Write):** Use your file-writing tool (e.g., `write_file`) to save the complete, updated document. 
     * **IMMUTABILITY RULE:** Never modify or delete previously approved phases without explicitly asking the user first. Do not move to the next phase until the file update is successful.
+
+**Folder Structure:** All output for a given analysis lives under a single dedicated folder in the workbench, keyed by the analysis name:
+```
+work-bench/
+  [Analysis_Name]/
+    analysis/
+      [Analysis_Name]_Analysis.md
+```
+Sanitize `[Analysis_Name]` for directory naming the same way feature names are sanitized elsewhere (e.g., "Shift Scheduling" -> `Shift-Scheduling`). This folder is also where the Strory-Writer skill will later look for a `tickets/` sibling folder when publishing tickets related to this analysis.
 
 ### The 5 Phases of Feature Analysis
 
