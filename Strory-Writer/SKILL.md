@@ -13,25 +13,36 @@ This skill analyzes the `wiki/` folder to synthesize development-ready tickets a
 
 ---
 
-## SEARCH SOURCE RULE — all requirements must come from wiki/
+## SEARCH SOURCE RULE — all requirements must come from wiki/ or the matching work-bench/ FAD
 
 ```
 STRICT REQUIREMENT CONSTRAINT:
-1. Derive all ticket logic, fields, and constraints ONLY from wiki/ pages.
+1. Derive all ticket logic, fields, and constraints ONLY from:
+     a. wiki/ pages, and/or
+     b. the work-bench/[Analysis_Name]/analysis/ FAD matching the requested feature
+        (used when the feature has not yet been ingested into wiki/, or to fill
+        detail wiki/ doesn't have yet).
 2. Do NOT use training knowledge to fill gaps or invent system behavior.
-3. Every requirement in the generated ticket should be traceable to a wiki page.
-4. If the wiki is missing information needed for a complete ticket:
+3. Every requirement in the generated ticket should be traceable to a wiki page
+   or to the work-bench/[Analysis_Name]/analysis/ FAD — cite which source line/section
+   it came from when the two sources disagree.
+4. If neither source has information needed for a complete ticket:
      State the gap explicitly in the "Note:" section.
      Do NOT make assumptions or "hallucinate" the missing logic.
-5. Search ONLY the wiki/ folder. Ignore raw/ and other directories.
-6. WRITE RULE: The skill is strictly read-only for wiki/ and raw/. It is authorized to write and create directories ONLY within the work-bench/[Analysis_Name]/tickets/ directory.
+5. If wiki/ and the work-bench/ FAD contradict each other on the same rule,
+   flag it explicitly in the ticket's "Note:" section instead of silently picking one.
+6. Search ONLY wiki/ and the matching work-bench/[Analysis_Name]/analysis/ folder.
+   Ignore raw/ and other directories.
+7. WRITE RULE: The skill is strictly read-only for wiki/, raw/, and work-bench/[Analysis_Name]/analysis/.
+   It is authorized to write and create directories ONLY within the
+   work-bench/[Analysis_Name]/tickets/ directory.
 ```
 
 ---
 
 ## What this skill does
 
-- Performs a 3-pass retrieval on `wiki/` to gather all context for a feature or module.
+- Performs a 3-pass retrieval on `wiki/` (and the matching `work-bench/[Analysis_Name]/analysis/` FAD when the feature isn't in wiki/ yet, or to fill in detail wiki/ lacks) to gather all context for a feature or module.
 - Analyzes the gathered content for logical consistency and ticket-readiness.
 - Generates highly structured tickets based *only* on verified wiki content.
 - **Manages Ticket Lifecycle**: Handles the review process and automated publishing to the `work-bench/[Analysis_Name]/tickets/` directory, linked to the analysis it belongs to.
@@ -46,6 +57,7 @@ Before generating any content, the skill must:
 1. **Pass 1:** Scan `wiki/index.md` for the topic and candidate pages.
 2. **Pass 2:** Read candidate pages in full.
 3. **Pass 3:** Follow central wikilinks to resolve dependencies (e.g., cross-module logic).
+4. **Pass 4:** Locate `work-bench/[Analysis_Name]/analysis/` for the same feature (sanitized name match). If found, read it in full — use it to fill any detail the wiki/ pages don't cover, or as the primary source if the feature hasn't been ingested into wiki/ yet.
 
 ### Analysis Phase
 Evaluate the retrieved data against Ticket standards:
@@ -155,6 +167,6 @@ Note:
 
 | Operation | Purpose | Search Scope |
 |-----------|---------|--------------|
-| `/story-writer ANA-1` | Analyze if wiki has enough info for a ticket | `wiki/` only |
-| `/story-writer TKT-1` | Generate, Review, and Publish a ticket | `wiki/` only |
-| `/story-writer [topic]` | Default: Search + Analyze + Draft + Review | `wiki/` only |
+| `/story-writer ANA-1` | Analyze if wiki has enough info for a ticket | `wiki/` + matching `work-bench/[Analysis_Name]/analysis/` |
+| `/story-writer TKT-1` | Generate, Review, and Publish a ticket | `wiki/` + matching `work-bench/[Analysis_Name]/analysis/` |
+| `/story-writer [topic]` | Default: Search + Analyze + Draft + Review | `wiki/` + matching `work-bench/[Analysis_Name]/analysis/` |
