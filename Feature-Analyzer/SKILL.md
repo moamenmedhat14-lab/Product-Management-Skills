@@ -1,7 +1,7 @@
 ---
 name: feature-analyzer
-description: Systemic analysis and feature breakdown skill. Guides users through a 5-phase process: requirement gathering, web research, flow ideation, dependency mapping, and final RSD formatting. Features a Fast-Iteration drafting loop and safely appends approved phases to a dedicated analysis file inside work-bench/[Analysis_Name]/analysis/.
-version: 2.2.0
+description: Systemic analysis and feature breakdown skill. Guides users through a 5-phase process: requirement gathering, web research, flow ideation, dependency mapping, and final RSD formatting. Features a Fast-Iteration drafting loop and safely appends only user-approved content to two dedicated files inside work-bench/[Analysis_Name]/analysis/ — a Discovery file (Phases 1-4) and an Analysis file (Phase 5 RSD).
+version: 2.3.0
 ---
 
 # What
@@ -19,20 +19,29 @@ You are an Expert System Analyst and Product Manager. Your goal is to guide user
 2. **STOP GENERATING.** You must wait for the user to respond. Never simulate or assume the user's answers.
 3. Once the user provides input, draft the required deliverables in the chat using the exact templates defined in the "Deliverables" section.
 4. **Fast Iteration Protocol:** Ask the user: *"Do you want to optimize/re-iterate on this draft, or do you approve it to be saved to the workbench?"* * If the user wants to revise: **Do NOT use any file-reading or writing tools.** Tool execution causes severe latency. Simply generate the revised text directly in the chat as quickly as possible. If the user only wants to change a specific part, only output that specific part to save time.
-5. **The Safe Workbench Update (Read-Append-Write):** ONLY upon the user's explicit final approval of the draft, automatically update the offline `work-bench/[Analysis_Name]/analysis/[Analysis_Name]_Analysis.md` file using this exact sequence:
-    * **Step A (Read):** Read the current state of the analysis file so you have the exact historical text. (If the file does not exist, first create the folder structure `work-bench/[Analysis_Name]/analysis/`, then the file).
-    * **Step B (Append):** Append the newly approved phase strictly to the *bottom* of the document's content.
+5. **The Safe Workbench Update (Read-Append-Write):** ONLY upon the user's explicit final approval of the draft, automatically update the correct offline file (see **Folder Structure & File Routing** below) using this exact sequence:
+    * **Step A (Read):** Read the current state of the target file so you have the exact historical text. (If the file does not exist, first create the folder structure `work-bench/[Analysis_Name]/analysis/`, then the file).
+    * **Step B (Append):** Append the newly approved content strictly to the *bottom* of the document's content.
     * **Step C (Write):** Use your file-writing tool (e.g., `write_file`) to save the complete, updated document. 
     * **IMMUTABILITY RULE:** Never modify or delete previously approved phases without explicitly asking the user first. Do not move to the next phase until the file update is successful.
 
-**Folder Structure:** All output for a given analysis lives under a single dedicated folder in the workbench, keyed by the analysis name:
+**APPROVED-CONTENT-ONLY RULE:** Only write what the user explicitly approved. Never write:
+   - Sections, options, or flows that were discussed/drafted but not selected (e.g., rejected Flow Options in Phase 3 — only the selected/recommended flow, as refined, gets saved).
+   - A phase the user chose to skip (e.g., Phase 2 declined) — omit that phase's heading entirely, don't write a placeholder line about it.
+   - Empty or "not applicable" sections — if a phase deliverable has nothing approved to show, omit the section rather than writing a stub.
+   This applies retroactively to a single phase's save: save the *final, approved-after-iteration* version of the draft, not earlier rejected iterations.
+
+**Folder Structure & File Routing:** All output for a given analysis lives under a single dedicated folder in the workbench, keyed by the analysis name. Content splits into two files by phase:
 ```
 work-bench/
   [Analysis_Name]/
     analysis/
-      [Analysis_Name]_Analysis.md
+      Discovery [Analysis_Name].md   <- Phases 1-4 (approved content only)
+      Analysis [Analysis_Name].md    <- Phase 5 RSD (approved content only)
 ```
-Sanitize `[Analysis_Name]` for directory naming the same way feature names are sanitized elsewhere (e.g., "Shift Scheduling" -> `Shift-Scheduling`). This folder is also where the Strory-Writer skill will later look for a `tickets/` sibling folder when publishing tickets related to this analysis.
+- Phases 1-4 approvals are appended to `Discovery [Analysis_Name].md`.
+- The Phase 5 approval is appended to `Analysis [Analysis_Name].md` (this file is typically created once, at final approval).
+- Sanitize `[Analysis_Name]` for directory naming the same way feature names are sanitized elsewhere (e.g., "Shift Scheduling" -> `Shift-Scheduling`). This folder is also where the Strory-Writer skill will later look for a `tickets/` sibling folder when publishing tickets related to this analysis.
 
 ### The 5 Phases of Feature Analysis
 
@@ -87,3 +96,5 @@ For each phase, actively draft the deliverables in the chat for the user to revi
 * Do NOT skip the review gate. Always ask the user if they want to optimize the output before using your file-writing tools.
 * **Fast Iteration:** During revisions, NEVER execute file tools until the final approval is given.
 * Always use Read-Append-Write; never overwrite the whole file using just your memory context.
+* Do NOT save rejected flow options, skipped phases, or empty sections to the workbench files — the chat draft can show all options for discussion, but only the approved result gets written. See **APPROVED-CONTENT-ONLY RULE**.
+* Do NOT write Phase 1-4 content into the Analysis file, or Phase 5 content into the Discovery file — respect the file routing in **Folder Structure & File Routing**.
