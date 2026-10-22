@@ -2,7 +2,7 @@
 
 **Location:** E:\Mo'\.pm-skills\
 **Source:** https://github.com/moamenmedhat14-lab/Product-Management-Skills
-**Last synced:** 2026-07-09
+**Last synced:** 2026-10-22
 
 ## Available Skills
 
@@ -16,6 +16,7 @@
 | `product-review/product-review.md` | product-review | 1.0 | Running a structured product review combining Nielsen's 10 Usability Heuristics + Logic Model analysis → iterative assessment saved to Product-Review/ |
 | `azure-backlog-retrieval/azure-backlog-retrieval.md` | azure-backlog-retrieval | 2.0 | Pulling work items (Epics/Features/PBIs/Bugs/Enhancements) for a module from Azure DevOps → saved to Backlog/Backlog-Raw/, then synthesized into a business knowledge doc in Backlog/Backlog-Wiki/ |
 | `Backlog Gap Analysis/backlog-gap-analysis.md` | backlog-gap-analysis | 1.0 | Comparing main project wiki/ vs Backlog/Backlog-Wiki/ for a module → surfaces missing requirements/gaps, approved additions go to raw/ for later ingestion |
+| `discovery-drafter/SKILL.md` | discovery-drafter | 1.1.0 | Kicking off discovery for a new project/module → gated loop from a project brief to Feature List, RSD (strict R.S# format, one module per loop) and Open Questions log, plus Glossary, Decisions log, stakeholder questionnaires and session handoffs; saved to `work-bench/[Project_Name] Discovery/`. Needs `references/templates.md` and `references/rsd-coverage-checklist.md` |
 
 ## How to Update
 ```bash
