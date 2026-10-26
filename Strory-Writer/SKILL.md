@@ -162,7 +162,7 @@ Reference ticket: `work-bench/assignment_log_list/tickets/tkt_1_assignment_log_l
 - **Short and direct**: One rule per line. No long paragraphs. Do not repeat the same rule in two sections.
 - **Bullets and nesting**: Use `-` bullets. Nest detail under the item it explains (use one extra tab level). Example: a column bullet with its rule nested under it.
 - **Access**: A bullet with the navigation path, for example `- Staff Management --> Assignment Log`.
-- **Group the steps by topic** with short headers, for example `Updates / Steps:`, `Special Cases:`, `Screen Controls:`. Use only the groups the ticket needs.
+- **Group the steps by topic** with short headers, for example `Updates / Steps:`, `Validations:`, `Filters:`, `Upon-Saving:`, `Screen Controls:`, `Special Cases:`. Use only the groups the ticket needs. Put the Access path first and `Special Cases:` last.
 - **Fields and filters**: Name the field, then put the type or constraint in double quotes, for example `Date range "Start date and end date, applied on the Effective date column"` or `Tags "only permitted unit's tags"`. Put the extra rule as a nested bullet.
 - **Conditional logic**: Use `If <condition>:` followed by `-` bullets.
 - **Validations**: `-` bullets. Put an example as a nested bullet under the rule it explains.
