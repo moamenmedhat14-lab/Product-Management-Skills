@@ -152,14 +152,24 @@ Note:
 
 ---
 
-## Writing Style Rules
+## Writing Style Rules — Moamen's ticket style
 
-- **Acceptance Criteria**: All content following the `[Design Link]` marker (including Access, Steps, Validations, Upon saving, and Note) collectively constitutes the **Acceptance Criteria**. When generating tickets, always include the `Acceptance Criteria:` header.
-- **Direct & Instructional:** Use "will", "must", or "can". Avoid "should".
-- **No Bullets in Logic:** Use a line-by-line structure for rules (each line is a rule).
-- **Terminology:** Use exact wiki terms (e.g., "License record", not "License").
-- **Fields:** Format as `Field name "Type, constraints"`.
-- **Conditional Logic:** Use `If <condition>:` blocks.
+Reference ticket: `work-bench/assignment_log_list/tickets/tkt_1_assignment_log_list.md` (hand-optimized by Moamen). Match its layout and tone.
+
+- **Ticket Name**: `[Module][Feature] Title`. Use the same module name as the Access path (for example `[Staff Management]`).
+- **Story**: bold the three keywords: `**As** a ...,` / `**I want to** ...,` / `**So that** ...`.
+- **Acceptance Criteria**: All content after the `[Design Link]` marker is the Acceptance Criteria. Always include the `Acceptance Criteria:` header.
+- **Short and direct**: One rule per line. No long paragraphs. Do not repeat the same rule in two sections.
+- **Bullets and nesting**: Use `-` bullets. Nest detail under the item it explains (use one extra tab level). Example: a column bullet with its rule nested under it.
+- **Access**: A bullet with the navigation path, for example `- Staff Management --> Assignment Log`.
+- **Group the steps by topic** with short headers, for example `Updates / Steps:`, `Special Cases:`, `Screen Controls:`. Use only the groups the ticket needs.
+- **Fields and filters**: Name the field, then put the type or constraint in double quotes, for example `Date range "Start date and end date, applied on the Effective date column"` or `Tags "only permitted unit's tags"`. Put the extra rule as a nested bullet.
+- **Conditional logic**: Use `If <condition>:` followed by `-` bullets.
+- **Validations**: `-` bullets. Put an example as a nested bullet under the rule it explains.
+- **Terminology**: Use the exact terms of the wiki or the FAD (for example "First assignment", "From unit", "To unit").
+- **Wording**: Simple, plain sentences (Simplified Technical English). Use "can" and "must". Avoid "should".
+- **Keep it small**: Do not add rules that the user did not ask for. Out-of-scope items go in `Note:` only if the user wants them there.
+- **Learn from edits**: If Moamen edits a published ticket by hand, read the edit. Apply the same style change to the next tickets.
 
 ---
 
