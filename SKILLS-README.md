@@ -8,7 +8,7 @@
 
 | Skill Folder | Skill Name | Version | Use When |
 |-------------|-----------|---------|----------|
-| `Feature-Analyzer/SKILL.md` | feature-analyzer | 2.3.0 | Analyzing a feature or epic → 5-phase process: Discovery → Research → Flow Ideation → Dependencies → RSD output; approved-only content saved to `work-bench/[Analysis_Name]/analysis/` as `Discovery [Analysis_Name].md` (Phases 1-4) and `Analysis [Analysis_Name].md` (Phase 5 RSD) |
+| `Feature-Analyzer/SKILL.md` | feature-analyzer | 2.4.0 | Analyzing a feature or epic → 5-phase process: Discovery → Research → Flow Ideation → Dependencies → RSD output; approved-only content saved to `work-bench/[Analysis_Name]/analysis/` as `Discovery [Analysis_Name].md` (Phases 1-4) and `Analysis [Analysis_Name].md` (Phase 5 RSD) |
 | `Strory-Writer/SKILL.md` | story-writer | — | Drafting development-ready tickets from wiki/ content (3-pass retrieval + publish to `work-bench/[Analysis_Name]/tickets/`) |
 | `ai-pm-expert-analyzer/SKILL.md` | ai-feature-pm | 1.5.0 | Scoping or evaluating an AI feature → 11-phase PM playbook: opportunity framing through launch, monitoring, and 50 use cases, saved to `work-bench/[Analysis_Name]/analysis/` |
 | `Workbench-to-raw/SKILL.md` | workbench-to-raw | 3.1.0 | Promoting an approved work-bench/ draft into raw/ (surgical Bash merge, RSD formatting, cleanup options) |
