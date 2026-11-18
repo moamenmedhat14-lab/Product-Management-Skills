@@ -1,7 +1,7 @@
 ---
 name: feature-analyzer
 description: Systemic analysis and feature breakdown skill. Guides users through a 5-phase process: requirement gathering, web research, flow ideation, dependency mapping, and final RSD formatting. Features a Fast-Iteration drafting loop and safely appends only user-approved content to two dedicated files inside work-bench/[Analysis_Name]/analysis/ — a Discovery file (Phases 1-4) and an Analysis file (Phase 5 RSD).
-version: 2.4.0
+version: 2.4.2
 ---
 
 # What
@@ -101,10 +101,18 @@ Learned from Moamen's manual edits of RSD files. Apply to every R.S# block. Re-c
 * **Lists after a colon.** When a sentence names a set of conditions or values, end it with a colon and list each item on its own sub-bullet. Do not write them in a comma sentence.
   * Example: `The selection list shows the activities of the unit that are:` then `ATC`, `Operation Position`, `Active`.
 * **Conditions as a parent bullet.** Write `If the status of "X" is "Disabled":` and put each result as a sub-bullet (for example `The field is dimmed.`).
+* **Change an existing rule.** Write `Change the rule:`, then the old rule in double quotes as a sub-bullet, then `to →` the new rule as a nested sub-bullet.
+  * Example: `Change the rule:` → `"If employee assigned to ATC activity then assigned to non-ATC activity → Work:Break ratio policy applied"` → `to → No validation required for the break ratio policy.`
+* **Validation error on one line.** Write the condition, the result, an arrow, and the message in italic double quotes on one bullet.
+  * Example: `If the value is less than the min. value, prevent saving. → *"The value must be at least [Min. value] Hrs."*`
 * **Quote UI text.** Put pop-up texts, messages, and static texts in double quotes. When the text follows an instruction, give it its own sub-bullet.
 * **Blank line between groups.** In Validations and Upon Action, leave a blank line between groups of bullets that treat different cases (for example between toggle off, toggle on, and toggle on → off).
 * **Structure stays as the template.** Keep `Triggers`, `Validations`, `Upon Action` (with bold `User Feedback` and `System Reflection`) as in the Strict RSD Template above. Use short plain words. Name entities as the product does (DOO, Position Roster, activity assignment templates).
-* **File split.** The Analysis file keeps only the RSD. Rules, examples, decision history, notes, and open questions go to the Discovery file.
+* **Do not repeat existing rules.** If another R.S# block or an existing rule already covers a behavior, do not write it again (for example the trainee exemption of R.S#2.6, or "published rosters do not change" of R.S#13.2). Refer to the R.S# only when needed.
+* **No Logging line by default.** Add a `Logging` bullet only when Moamen asks for it or the existing module already has it for this action. Do not add a log or a notification as an assumed default.
+* **Note for current behavior.** To make clear how a new rule meets a current behavior, add a `**Note**:` sub-bullet under the related bullet (for example `**Note**: a null shift shows empty for days with no demand; the current behavior stays if no demand is generated for a whole month`).
+* **Short in-place example when asked.** If Moamen asks for an example to make a scenario clear, add a short `**Example:**` bullet under the rule in the RSD, with each case and result as sub-bullets. Put the full example table in the Discovery file.
+* **File split.** The Analysis file keeps only the RSD. Rules, examples, decision history, notes, and open questions go to the Discovery file (except the `**Note**:` and the asked-for `**Example:**` bullets above).
 
 # Pitfalls
 * Do NOT search the web without explicit permission in Phase 2.1.
