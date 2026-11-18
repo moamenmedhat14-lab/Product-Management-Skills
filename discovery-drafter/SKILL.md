@@ -65,7 +65,7 @@ Supporting artifacts keep that system consistent across sessions and people:
 
 ## Folder structure & file routing
 
-The `work-bench/` folder already exists inside each project folder of the PM's wiki (e.g. `Access-Management/work-bench/`, `Employee-Mobile-App/work-bench/`). The discovery output lives in its own folder **inside that project's work-bench**:
+The `work-bench/` folder already exists inside each project folder of the PM's wiki (e.g. `Access-Management/work-bench/`, `Employee-Web-Portal/work-bench/`, `Employee-Mobile-App/work-bench/`). The discovery output lives in its own folder **inside that project's work-bench**:
 
 ```
 [Project_Folder]/                          <- project in the wiki (has .raw, .wiki, Designs, scripts, CLAUDE...)
