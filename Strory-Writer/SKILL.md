@@ -169,6 +169,8 @@ Reference ticket: `work-bench/assignment_log_list/tickets/tkt_1_assignment_log_l
 - **Terminology**: Use the exact terms of the wiki or the FAD (for example "First assignment", "From unit", "To unit").
 - **Wording**: Simple, plain sentences (Simplified Technical English). Use "can" and "must". Avoid "should".
 - **Keep it small**: Do not add rules that the user did not ask for. Out-of-scope items go in `Note:` only if the user wants them there.
+- **No open questions in tickets**: Do not put open items or undecided questions in the ticket `Note:`. Keep them in the Discovery file. If the analysis keeps a current behavior, write that behavior in the ticket, not the question.
+- **No "other module does not change" notes**: Do not add `Note:` lines such as "Activity-based demand does not change". Keep `Note:` for dependencies on other tickets and real cross-feature risks.
 - **Learn from edits**: If Moamen edits a published ticket by hand, read the edit. Apply the same style change to the next tickets.
 
 ---
