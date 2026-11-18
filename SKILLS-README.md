@@ -8,7 +8,7 @@
 
 | Skill Folder | Skill Name | Version | Use When |
 |-------------|-----------|---------|----------|
-| `Feature-Analyzer/SKILL.md` | feature-analyzer | 2.4.0 | Analyzing a feature or epic → 5-phase process: Discovery → Research → Flow Ideation → Dependencies → RSD output; approved-only content saved to `work-bench/[Analysis_Name]/analysis/` as `Discovery [Analysis_Name].md` (Phases 1-4) and `Analysis [Analysis_Name].md` (Phase 5 RSD) |
+| `Feature-Analyzer/SKILL.md` | feature-analyzer | 2.4.1 | Analyzing a feature or epic → 5-phase process: Discovery → Research → Flow Ideation → Dependencies → RSD output; approved-only content saved to `work-bench/[Analysis_Name]/analysis/` as `Discovery [Analysis_Name].md` (Phases 1-4) and `Analysis [Analysis_Name].md` (Phase 5 RSD) |
 | `Strory-Writer/SKILL.md` | story-writer | — | Drafting development-ready tickets from wiki/ content (3-pass retrieval + publish to `work-bench/[Analysis_Name]/tickets/`) |
 | `ai-pm-expert-analyzer/SKILL.md` | ai-feature-pm | 1.5.0 | Scoping or evaluating an AI feature → 11-phase PM playbook: opportunity framing through launch, monitoring, and 50 use cases, saved to `work-bench/[Analysis_Name]/analysis/` |
 | `Workbench-to-raw/SKILL.md` | workbench-to-raw | 3.1.0 | Promoting an approved work-bench/ draft into raw/ (surgical Bash merge, RSD formatting, cleanup options) |
@@ -17,6 +17,7 @@
 | `azure-backlog-retrieval/azure-backlog-retrieval.md` | azure-backlog-retrieval | 2.0 | Pulling work items (Epics/Features/PBIs/Bugs/Enhancements) for a module from Azure DevOps → saved to Backlog/Backlog-Raw/, then synthesized into a business knowledge doc in Backlog/Backlog-Wiki/ |
 | `Backlog Gap Analysis/backlog-gap-analysis.md` | backlog-gap-analysis | 1.0 | Comparing main project wiki/ vs Backlog/Backlog-Wiki/ for a module → surfaces missing requirements/gaps, approved additions go to raw/ for later ingestion |
 | `discovery-drafter/SKILL.md` | discovery-drafter | 1.1.0 | Kicking off discovery for a new project/module → gated loop from a project brief to Feature List, RSD (strict R.S# format, one module per loop) and Open Questions log, plus Glossary, Decisions log, stakeholder questionnaires and session handoffs; saved to `work-bench/[Project_Name] Discovery/`. Includes `references/templates.md` and `references/rsd-coverage-checklist.md` |
+| `Second-Eye/SKILL.md` | second-eye | 1.0.0 | **Explicit request only** — Moamen asks for a "second eye" on an analysis (FAD, Discovery, RSD, gaps file, tickets). Elephant-Goldfish Model for business logic: 7 fresh-context, read-only reviewer subagents (naive-reader, logic-critic, edge-case-hunter, actor-permission, lifecycle-state, zoom-out, dev-qa-readiness) find gaps, edge cases, contradictions and wiki conflicts → one merged report in `work-bench/[Topic]/second-eye/Second Eye [Topic].md`, then an optional resolve loop. Includes `references/goldfish-lenses.md` and `references/report-template.md`. Never run it on your own. |
 
 ## How to Update
 ```bash
